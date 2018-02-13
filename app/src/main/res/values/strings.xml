@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">quiz</string>
+    <string name="label_pregunta">Pregunta X</string>
+    <string name="btn_check">comprova</string>
+</resources>
