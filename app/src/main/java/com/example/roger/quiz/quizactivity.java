@@ -2,8 +2,12 @@ package com.example.roger.quiz;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class quizactivity extends AppCompatActivity {
 
@@ -13,6 +17,8 @@ public class quizactivity extends AppCompatActivity {
             R.id.answer3,
             R.id.answer4
     };
+    private int solution;
+    private RadioGroup answers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +31,31 @@ public class quizactivity extends AppCompatActivity {
             RadioButton rb = findViewById(ids_buttons[i]);
             rb.setText(answer_text[i]);
         }
+        Button btn_chek =findViewById(R.id.btn_check);
+        btn_chek.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkAnswer();
+            }
+        });
+        solution=getResources().getInteger(R.integer.solution);
+        answers=findViewById(R.id.answers);
+    }
 
+    private void checkAnswer() {
+        int id_check = answers.getCheckedRadioButtonId();
+        int quin =-1;
+        for (int i = 0; i <ids_buttons.length ; i++) {
+            if (id_check==ids_buttons[i]){
+                quin=i+1;
+            }
+            if(quin!=-1){
+                if(quin==solution){
+                    Toast.makeText(this, "Correcte!", Toast.LENGTH_SHORT).show();
+                }
+            }else{
+                Toast.makeText(this, "incorrecte ...", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }
