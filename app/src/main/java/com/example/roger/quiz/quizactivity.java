@@ -53,8 +53,9 @@ public class quizactivity extends AppCompatActivity {
                 if(quin==solution){
                     Toast.makeText(this, "Correcte!", Toast.LENGTH_SHORT).show();
                 }
-            }else{
-                Toast.makeText(this, "incorrecte ...", Toast.LENGTH_SHORT).show();
+                else{
+                    Toast.makeText(this, "incorrecte ...", Toast.LENGTH_SHORT).show();
+                }
             }
         }
     }
