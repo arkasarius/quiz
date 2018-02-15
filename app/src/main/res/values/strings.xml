@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">quiz</string>
     <string name="label_pregunta">Pregunta X</string>
-    <string name="btn_check">comprova</string>
+    <string name="check">comprova</string>
     <string name="question_content">Quina és la capital d\'Afganistan?</string>
     <string name="next">Next</string>
     <array name="answer_text">

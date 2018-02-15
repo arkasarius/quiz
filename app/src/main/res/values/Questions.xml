@@ -2,7 +2,7 @@
 <resources>
     <array name="questions">
         <item>Quina es la capital d\'Afghanistan</item>
-        <item>Quina es la capital d'Estonia</item>
+        <item>Quina es la capital d\'Estonia</item>
     </array>
 
     <array name="answers">
