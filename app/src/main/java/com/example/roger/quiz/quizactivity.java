@@ -1,5 +1,6 @@
 package com.example.roger.quiz;
 
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,46 +18,84 @@ public class quizactivity extends AppCompatActivity {
             R.id.answer3,
             R.id.answer4
     };
-    private int solution;
-    private RadioGroup answers;
+
+    private RadioGroup rgroup;//shift + f6 --
+
+    private String[] questions;
+    private String[][] answers;
+    private int[] solutions;
+    private int[] responses;// the answers from the user;
+    private int curr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quizactivity);
-        TextView question_text = findViewById(R.id.question_text);
-        question_text.setText(R.string.question_content);
-        String[] answer_text = getResources().getStringArray(R.array.answer_text);
-        for(int i =0;i<answer_text.length;i++){
-            RadioButton rb = findViewById(ids_buttons[i]);
-            rb.setText(answer_text[i]);
-        }
-        Button btn_chek =findViewById(R.id.btn_check);
+        curr=0;
+        loadQuestions();
+        showQuestion();
+
+        Button btn_chek =findViewById(R.id.btn_next);
         btn_chek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkAnswer();
+                //checkAnswer();
+                nextQuestions();
             }
         });
-        solution=getResources().getInteger(R.integer.solution);
-        answers=findViewById(R.id.answers);
+
+        rgroup =findViewById(R.id.answers);
+    }
+
+    private void nextQuestions() {
+        responses[curr]=getResponse();
+        //si estic a la ultima pregunta donar els resultats
+        curr++;
+        //si veiem que es la ultima hem de canviar el boto
+        showQuestion();
+    }
+
+    private void loadQuestions() {
+        Resources res = getResources();
+        questions = res.getStringArray(R.array.questions);
+        solutions = res.getIntArray(R.array.solutions);
+        String[] answ = res.getStringArray(R.array.answers);
+        answers = new String[answ.length][];
+        for (int i = 0; i < answ.length; i++) {
+            answers[i]= answ[i].split(";");
+        }
+        responses = new int[answ.length]; // el array esta ple de 0
+    }
+
+    private void showQuestion() {
+        TextView question_text = findViewById(R.id.question_text);
+        question_text.setText(questions[curr]);
+        for(int i =0;i<answers[curr].length;i++){
+            RadioButton rb = findViewById(ids_buttons[i]);
+            rb.setText(answers[curr][i]);
+        }
     }
 
     private void checkAnswer() {
-        int id_check = answers.getCheckedRadioButtonId();
+        int quin = getResponse();
+        if(quin!=-1){
+            if(quin==solutions[curr]){
+                Toast.makeText(this, "Correcte!", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Toast.makeText(this, "incorrecte ...", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private int getResponse() {
+        int id_check = rgroup.getCheckedRadioButtonId();
         int quin =-1;
         for (int i = 0; i <ids_buttons.length ; i++) {
             if (id_check==ids_buttons[i]){
                 quin=i+1;
             }
-            if(quin!=-1){
-                if(quin==solution){
-                    Toast.makeText(this, "Correcte!", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Toast.makeText(this, "incorrecte ...", Toast.LENGTH_SHORT).show();
-                }
-            }
         }
+        return quin;
     }
 }

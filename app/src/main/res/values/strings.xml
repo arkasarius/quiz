@@ -3,6 +3,7 @@
     <string name="label_pregunta">Pregunta X</string>
     <string name="btn_check">comprova</string>
     <string name="question_content">Quina és la capital d\'Afganistan?</string>
+    <string name="next">Next</string>
     <array name="answer_text">
         <item>Paris</item>
         <item>Londres</item>
